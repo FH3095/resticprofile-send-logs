@@ -74,8 +74,8 @@ func setupTargetLogger(flags commandLineFlags, logTarget, commandOutput string) 
 	// also redirect all terminal output
 	if file != nil {
 		if all, toLog := parseCommandOutput(commandOutput); all {
-			term.SetOutput(io.MultiWriter(file, term.GetOutput()))
-			term.SetErrorOutput(io.MultiWriter(file, term.GetErrorOutput()))
+			term.SetOutput(util.FlusherMultiWriter(file, term.GetOutput()))
+			term.SetErrorOutput(util.FlusherMultiWriter(file, term.GetErrorOutput()))
 		} else if toLog {
 			term.SetAllOutput(file)
 		}
